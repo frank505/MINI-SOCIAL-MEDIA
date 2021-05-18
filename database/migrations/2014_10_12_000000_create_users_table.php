@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('pic');
             $table->string('bio');
             $table->boolean('pvt');
+            $table->enum('role',['admin','user']);
             $table->date('last_login_date');
             $table->rememberToken();
             $table->timestamps();
