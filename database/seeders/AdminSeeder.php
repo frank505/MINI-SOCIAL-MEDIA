@@ -20,10 +20,11 @@ class AdminSeeder extends Seeder
             'username'=>'work@tvzcorp.com',
             'name'=>'work@tvzcorp.com',
             'email'=>'work@tvzcorp.com',
-            'password'=>Hash::make('“pAs!sw@rd@#61g”'),
+            'password'=>Hash::make('pAs!sw@rd@#61g'),
             'pic'=>'default.png',
             'bio'=>'this is the admin',
             'role'=>'admin',
+            'email_verified_at'=>Carbon::now()->toDateTimeString(),
             'pvt'=>true,
             'last_login_date'=>Carbon::now()->toDateTimeString()
         ]);
