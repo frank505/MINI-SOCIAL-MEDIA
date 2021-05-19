@@ -28,7 +28,10 @@ class ProfileController extends Controller
 
     public function __construct(UrlGenerator $urlGenerator)
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(
+            ['auth','verified'],
+            ['except'=>['userPaginatedData','publicProfileDisplay']]
+               );
         $this->user = new User();
         $this->url = $urlGenerator->to('/');
     }
@@ -121,6 +124,31 @@ class ProfileController extends Controller
        return HttpResponseHelper::Response(TRUE,'Profile status changed successfully',
            NULL,200);
    }
+
+
+
+   public function userPaginatedData()
+   {
+       $url = $this->url."".Storage::url('public/profile/');
+       $itemsPerPage = 10;
+     $data = $this->user->allPaginatedUsers($itemsPerPage);
+     return view('welcome',[
+         'data'=>$data,
+         'url'=>$url
+     ]);
+   }
+
+
+   public function publicProfileDisplay($id)
+   {
+       $url = $this->url."".Storage::url('public/profile/');
+       $data = $this->user->getAccountDetails($id);
+        return view('publicProfile',[
+            'profile'=>$data,
+            'url'=>$url
+        ]);
+   }
+
 
 
 }

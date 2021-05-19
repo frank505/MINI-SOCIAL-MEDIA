@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 Auth::routes([
     'verify'=>true
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/profile-picture',[\App\Http\Controllers\ProfileController::class,'profilePictureView']);
-Route::patch('/edit-profile-picture',[\App\Http\Controllers\ProfileController::class,'editProfilePicture']);
-Route::get('/bio-message',[\App\Http\Controllers\ProfileController::class,'bioMessageView']);
-Route::patch('/edit-bio-message',[\App\Http\Controllers\ProfileController::class,'editBioMessage']);
-Route::get('/change-password',[\App\Http\Controllers\ProfileController::class,'changePasswordView']);
-Route::patch('/change-password-action',[\App\Http\Controllers\ProfileController::class,'changePassword']);
-Route::get('/profile-status',[\App\Http\Controllers\ProfileController::class,'displayProfileStatusView']);
-Route::patch('/profile-status-action',[\App\Http\Controllers\ProfileController::class,'editProfileStatus']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile-picture',[ProfileController::class,'profilePictureView']);
+Route::patch('/edit-profile-picture',[ProfileController::class,'editProfilePicture']);
+Route::get('/bio-message',[ProfileController::class,'bioMessageView']);
+Route::patch('/edit-bio-message',[ProfileController::class,'editBioMessage']);
+Route::get('/change-password',[ProfileController::class,'changePasswordView']);
+Route::patch('/change-password-action',[ProfileController::class,'changePassword']);
+Route::get('/profile-status',[ProfileController::class,'displayProfileStatusView']);
+Route::patch('/profile-status-action',[ProfileController::class,'editProfileStatus']);
+Route::get('/',[ProfileController::class,'userPaginatedData']);
+Route::get('/username/{id}',[ProfileController::class,'publicProfileDisplay']);

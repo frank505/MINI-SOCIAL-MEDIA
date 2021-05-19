@@ -15,8 +15,7 @@ class HomeController extends Controller
    protected $user;
     public function __construct()
     {
-//        $this->middleware(['auth','verified']);
-        $this->user = new User();
+      $this->middleware(['auth','verified']);
     }
 
     /**
@@ -26,11 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $itemPerPage = 10;
-        $profiles = $this->user->allPaginatedUsers($itemPerPage);
-        return view('home',[
-            'profiles'=>$profiles
-        ]);
+
+        return view('home');
     }
 
 
