@@ -16,4 +16,8 @@ interface  UserContract
 
     public function allPaginatedUsers($itemsPerPage);
 
+    public function followers();
+
+    public function followingYou();
+
 }

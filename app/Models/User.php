@@ -95,4 +95,16 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
       ]);
   }
 
+
+    public function followers()
+    {
+        // TODO: Implement followers() method.
+        return $this->hasMany('App\Models\Followers','userid','id');
+    }
+
+    public function followingYou()
+    {
+        // TODO: Implement followingYou() method.
+        return $this->hasMany('App\Models\Followers','followed_userid','id');
+    }
 }
