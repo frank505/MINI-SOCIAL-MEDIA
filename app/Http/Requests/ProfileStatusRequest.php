@@ -6,7 +6,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ChangePasswordRequest extends FormRequest
+class ProfileStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,10 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password'=>'required|min:8|confirmed',
             //
+            'profile_status'=>'required|numeric'
         ];
     }
-
 
     protected function failedValidation(Validator $validator)
     {
@@ -41,4 +40,6 @@ class ChangePasswordRequest extends FormRequest
                 "message"=>"one or more fields are required"
             ], 422));
     }
+
+
 }

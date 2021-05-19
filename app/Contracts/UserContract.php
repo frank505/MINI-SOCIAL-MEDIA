@@ -12,4 +12,8 @@ interface  UserContract
 
     public function changePassword($hashPassword,$id);
 
+    public function editProfileStatus($profileStatus,$id);
+
+    public function allPaginatedUsers($itemsPerPage);
+
 }

@@ -6,6 +6,7 @@ use App\Helpers\HttpResponseHelper;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\EditBioMessageRequest;
 use App\Http\Requests\ProfilePictureRequest;
+use App\Http\Requests\ProfileStatusRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,5 +100,27 @@ class ProfileController extends Controller
             NULL,200);
 
     }
+
+
+   public function displayProfileStatusView()
+   {
+       $id = Auth::user()->id;
+       $data = $this->user->getAccountDetails($id);
+       return view('profileStatus',
+           [
+               "profile_status"=>$data->pvt
+           ]);
+   }
+
+
+   public function editProfileStatus(ProfileStatusRequest $request)
+   {
+       $request->validated();
+       $id = Auth::user()->id;
+       $this->user->editProfileStatus($request->profile_status,$id);
+       return HttpResponseHelper::Response(TRUE,'Profile status changed successfully',
+           NULL,200);
+   }
+
 
 }

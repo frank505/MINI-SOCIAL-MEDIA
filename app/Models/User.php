@@ -79,4 +79,20 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
       ]);
   }
 
+
+  public function editProfileStatus($profileStatus , $id)
+{
+    return $this->where(['id'=>$id])->update([
+       'pvt'=>$profileStatus
+    ]);
+}
+
+
+  public function allPaginatedUsers($itemsPerPage)
+  {
+      return $this->paginate($itemsPerPage,[
+          'pic','name','id'
+      ]);
+  }
+
 }

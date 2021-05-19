@@ -30,3 +30,5 @@ Route::get('/bio-message',[\App\Http\Controllers\ProfileController::class,'bioMe
 Route::patch('/edit-bio-message',[\App\Http\Controllers\ProfileController::class,'editBioMessage']);
 Route::get('/change-password',[\App\Http\Controllers\ProfileController::class,'changePasswordView']);
 Route::patch('/change-password-action',[\App\Http\Controllers\ProfileController::class,'changePassword']);
+Route::get('/profile-status',[\App\Http\Controllers\ProfileController::class,'displayProfileStatusView']);
+Route::patch('/profile-status-action',[\App\Http\Controllers\ProfileController::class,'editProfileStatus']);
