@@ -52,6 +52,31 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
     ];
 
 
+  public function getAccountDetails($id)
+  {
+      return $this->where(['id'=>$id])->first();
+  }
 
+  public function updateProfilePictureName($filename,$id)
+  {
+      return $this->where(['id'=>$id])->update([
+          'pic'=>$filename
+      ]);
+  }
+
+
+  public function editBioMessage($bioMessage,$id)
+  {
+      return $this->where(['id'=>$id])->update([
+         'bio'=>$bioMessage
+      ]);
+  }
+
+  public function changePassword($hashPassword,$id)
+  {
+      return $this->where(['id'=>$id])->update([
+          'password'=>$hashPassword
+      ]);
+  }
 
 }

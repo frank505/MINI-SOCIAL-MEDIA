@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}s">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
     <!-- iCheck -->
@@ -97,15 +102,7 @@
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
-                </div>
-            </div>
+
 
             <!-- SidebarSearch Form -->
             <div class="form-inline">
@@ -186,7 +183,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-pie"></i>
+
                             <p>
                                User Profile
                                 <i class="right fas fa-angle-left"></i>
@@ -194,20 +191,36 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/charts/chartjs.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Update Profile</p>
+
+                                <a href="/profile-picture" class="nav-link">
+
+                                    <p>Profile Picture</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="/bio-message" class="nav-link">
+                                    <p>Bio Message</p>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="pages/charts/flot.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+
                                     <p>Change Password</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="pages/charts/flot.html" class="nav-link">
+
+                                    <p>Profile Status</p>
+                                </a>
+                            </li>
+
                             <li class="nav-item">
                                 <a href="pages/charts/inline.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+
                                     <p>Logout</p>
                                 </a>
                             </li>
@@ -216,7 +229,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tree"></i>
+
                             <p>
                                 User Home
                                 <i class="fas fa-angle-left right"></i>
@@ -225,13 +238,13 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="pages/UI/general.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+
                                     <p>Followed Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/UI/icons.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+
                                     <p>Users Following You</p>
                                 </a>
                             </li>
@@ -252,9 +265,7 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
-                    </div><!-- /.col -->
+
 
                 </div><!-- /.row -->
 
@@ -324,6 +335,10 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('dist/js/pages/dashboard.js')}}"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="{{ asset('js/bundle.js') }}" ></script>
 
 
 
