@@ -21,4 +21,5 @@ mix.js([
     'resources/js/HelperService.js',
     'resources/js/ProfileService.js',
     'resources/js/FileService.js',
+    'resources/js/AdminService.js',
 ], 'public/js/bundle.js');

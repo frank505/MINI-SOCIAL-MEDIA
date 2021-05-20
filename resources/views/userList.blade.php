@@ -25,6 +25,8 @@
                         <div class="card-body">
                             <h4 class="card-title"><b>{{$profile->name}}</b></h4><br>
                             <a href="/panel/home/username/{{$profile->id}}" class="btn btn-primary">View Bio</a>
+                            <a href="/admin/edit/{{$profile->id}}" class="btn btn-primary">Edit User</a>
+                            <a href="/admin/{{$profile->id}}" class="btn btn-primary">Delete User</a>
                         </div>
                     </div>
 

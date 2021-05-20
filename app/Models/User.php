@@ -128,4 +128,20 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
     }
 
 
+
+    public function createUser($request)
+    {
+        return $this->create([
+            'username'=> $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'pic'=>'default.png',
+            'bio'=>NULL,
+            'pvt'=>1,
+            'role'=>'user',
+            'last_login_date'=>Carbon::now()->toDateString()
+        ]);
+    }
+
 }

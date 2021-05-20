@@ -25,4 +25,7 @@ interface  UserContract
    public function updateLoginTimeStamp($email);
 
 
+   public function createUser($request);
+
+
 }

@@ -39,6 +39,8 @@ Route::get('/',[ProfileController::class,'userPaginatedData']);
 Route::get('/username/{id}',[ProfileController::class,'publicProfileDisplay']);
 Route::post('/follow-user',[FollowController::class,'followUser']);
 Route::delete('/unfollow-user/{id}',[FollowController::class, 'unFollowUser']);
+Route::get('/admin/users',[AdminController::class, 'userList']);
 Route::resource('admin',AdminController::class);
+
 
 

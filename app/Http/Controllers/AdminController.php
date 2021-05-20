@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\HttpResponseHelper;
+use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -24,12 +27,19 @@ class AdminController extends Controller
      */
     public function index()
     {
+       return view('home');
+    }
+
+
+    public function userList()
+    {
         //
-        $itemPerPage = 10;
+        $url = $this->baseUrl."".Storage::url('public/profile/');
+        $itemPerPage = 3;
         $data = $this->user->allPaginatedUsers($itemPerPage);
         return view('userList',[
             'data'=>$data,
-            'url'=>$this->baseUrl
+            'url'=>$url
         ]);
     }
 
@@ -48,11 +58,13 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $request->validated();
+        $this->user->createUser($request);
+       return  HttpResponseHelper::Response(true,'User Created Successfully',NULL,200);
 
     }
 
@@ -60,11 +72,16 @@ class AdminController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
         //
+        $data = $this->user->getAccountDetails($id);
+        return view('privateProfile',
+            [
+            'profile'=>$data
+           ]);
     }
 
     /**

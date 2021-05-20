@@ -88,6 +88,7 @@ export const httpResponseCreateOrUpdateData = (data,displayErr) =>
     {
 
         swal(data.message);
+        displayErr.innerHTML = '';
         return true;
         // reloadSamepage(1000);
 
