@@ -1,9 +1,15 @@
 /**
  * adding a new pricing data
  */
-import {genericErrorResponse, httpResponseCreateOrUpdateData, imgCheckWidthHeight, SwalAlert} from "./HelperService";
+import {
+    genericErrorResponse,
+    httpResponseCreateOrUpdateData,
+    imgCheckWidthHeight,
+    reloadSamepage,
+    SwalAlert
+} from "./HelperService";
 import {getBase64, isImage} from "./FileService";
-import {postData} from "./HttpService";
+import {deleteData, postData} from "./HttpService";
 
 $(document).on("change","#img-profile",function (e){
 
@@ -38,7 +44,7 @@ $(document).on("click","#btn-submit-profile",function (e){
     data.append('file',fileUpload.files[0]);
     const displayErr = document.querySelector(".display_err");
     elem.disabled=true;
-    postData(data,'/edit-profile-picture?_method=PATCH','POST').then((data)=>
+    postData(data,'/panel/profile/edit-profile-picture?_method=PATCH','POST').then((data)=>
     {
         elem.disabled=false;
         httpResponseCreateOrUpdateData(data,displayErr);
@@ -59,7 +65,7 @@ $(document).on("click","#btn-submit-bio-data",function (e){
     data.append('message',bioData.value);
     const displayErr = document.querySelector(".display_err");
     elem.disabled=true;
-    postData(data,'/edit-bio-message?_method=PATCH','POST').then((data)=>
+    postData(data,'/panel/profile/edit-bio-message?_method=PATCH','POST').then((data)=>
         {
             elem.disabled=false;
             httpResponseCreateOrUpdateData(data,displayErr);
@@ -88,7 +94,7 @@ $(document).on("click","#btn-submit-change-password",function (e){
     data.append('password_confirmation',confirm.value);
     const displayErr = document.querySelector(".display_err");
     elem.disabled=true;
-    postData(data,'/change-password-action?_method=PATCH','POST').then((data)=>
+    postData(data,'/panel/profile/change-password-action?_method=PATCH','POST').then((data)=>
         {
             elem.disabled=false;
             httpResponseCreateOrUpdateData(data,displayErr);
@@ -115,10 +121,62 @@ $(document).on("click","#btn-submit-profile-status",function (e){
     data.append('profile_status',elemChecked.value);
     const displayErr = document.querySelector(".display_err");
     elem.disabled=true;
-    postData(data,'/profile-status-action?_method=PATCH','POST').then((data)=>
+    postData(data,'/panel/profile/profile-status-action?_method=PATCH','POST').then((data)=>
         {
             elem.disabled=false;
             httpResponseCreateOrUpdateData(data,displayErr);
+        },
+        error=>{
+            console.log(error);
+            genericErrorResponse();
+        }
+    )
+
+});
+
+
+
+$(document).on("click","#follow-user",function (e){
+
+    let elem = e.target;
+    let data = new FormData();
+    data.append('userid',elem.getAttribute('data-user'));
+    const displayErr = document.querySelector(".display_err");
+    elem.disabled=true;
+    postData(data,'/follow-user','POST').then((data)=>
+        {
+            elem.disabled=false;
+         let ResBool = httpResponseCreateOrUpdateData(data,displayErr);
+         if(ResBool == true)
+         {
+             reloadSamepage(100);
+         }
+
+        },
+        error=>{
+            console.log(error);
+            genericErrorResponse();
+        }
+    )
+
+});
+
+
+
+$(document).on("click","#unfollow-user",function (e){
+
+    let elem = e.target;
+    const displayErr = document.querySelector(".display_err");
+    elem.disabled=true;
+   deleteData('/unfollow-user/'+elem.getAttribute('data-user')).then((data)=>
+        {
+            elem.disabled=false;
+            let ResBool = httpResponseCreateOrUpdateData(data,displayErr);
+            if(ResBool == true)
+            {
+                reloadSamepage(100);
+            }
+
         },
         error=>{
             console.log(error);

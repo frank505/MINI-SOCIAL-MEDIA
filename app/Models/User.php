@@ -95,4 +95,57 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
       ]);
   }
 
+
+    public function followers()
+    {
+        // TODO: Implement followers() method.
+        return $this->hasMany('App\Models\Followers','userid','id');
+    }
+
+    public function followingYou()
+    {
+        // TODO: Implement followingYou() method.
+        return $this->hasMany('App\Models\Followers','followed_userid','id');
+    }
+
+
+    public function isFollowingUser($followerUserId,$id)
+    {
+
+        return $this->whereHas("followers", function ($q) use ($followerUserId, $id) {
+            $q->where(['userid'=>$id,'followed_userid'=>$followerUserId]);
+        })->count();
+
+    }
+
+
+    public function createNewFollower($followerUserId,$id)
+    {
+        return Followers::followUser($id,$followerUserId);
+    }
+
+    public function unFollowerUser($followerUserId, $id)
+    {
+        // TODO: Implement unFollowerUser() method.
+        return Followers::unFollowUser($id,$followerUserId);
+    }
+
+
+    public function allUsersFollowingYou($id)
+    {
+        // TODO: Implement allUsersFollowingYou() method.
+     $itemPerPage = 10;
+     return $this->where(['id'=>$id])->with('followingYou')->paginate($itemPerPage);
+
+    }
+
+    public function allUsersYouAreFollowing($id)
+    {
+        // TODO: Implement allUsersYouAreFollowing() method.
+        $itemPerPage = 10;
+        return $this->where(['id'=>$id])->with('followers')->paginate($itemPerPage);
+
+    }
+
+
 }

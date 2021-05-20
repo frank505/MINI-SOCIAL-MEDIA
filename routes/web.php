@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 
 Auth::routes([
     'verify'=>true
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/profile-picture',[\App\Http\Controllers\ProfileController::class,'profilePictureView']);
-Route::patch('/edit-profile-picture',[\App\Http\Controllers\ProfileController::class,'editProfilePicture']);
-Route::get('/bio-message',[\App\Http\Controllers\ProfileController::class,'bioMessageView']);
-Route::patch('/edit-bio-message',[\App\Http\Controllers\ProfileController::class,'editBioMessage']);
-Route::get('/change-password',[\App\Http\Controllers\ProfileController::class,'changePasswordView']);
-Route::patch('/change-password-action',[\App\Http\Controllers\ProfileController::class,'changePassword']);
-Route::get('/profile-status',[\App\Http\Controllers\ProfileController::class,'displayProfileStatusView']);
-Route::patch('/profile-status-action',[\App\Http\Controllers\ProfileController::class,'editProfileStatus']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/panel/profile/profile-picture',[ProfileController::class,'profilePictureView']);
+Route::patch('/panel/profile/edit-profile-picture',[ProfileController::class,'editProfilePicture']);
+Route::get('/panel/profile/bio-message',[ProfileController::class,'bioMessageView']);
+Route::patch('/panel/profile/edit-bio-message',[ProfileController::class,'editBioMessage']);
+Route::get('/panel/profile/change-password',[ProfileController::class,'changePasswordView']);
+Route::patch('/panel/profile/change-password-action',[ProfileController::class,'changePassword']);
+Route::get('/panel/profile/profile-status',[ProfileController::class,'displayProfileStatusView']);
+Route::patch('/panel/profile/profile-status-action',[ProfileController::class,'editProfileStatus']);
+Route::get('/panel/home/following-you',[FollowController::class,'allUsersFollowing']);
+Route::get('/panel/home/users-you-follow',[FollowController::class,'allUsersFollowed']);
+Route::get('/',[ProfileController::class,'userPaginatedData']);
+Route::get('/username/{id}',[ProfileController::class,'publicProfileDisplay']);
+Route::post('/follow-user',[FollowController::class,'followUser']);
+Route::delete('/unfollow-user/{id}',[FollowController::class, 'unFollowUser']);
+
+
