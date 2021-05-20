@@ -188,27 +188,27 @@
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
 
-                                <a href="/profile-picture" class="nav-link">
+                                <a href="/panel/profile/profile-picture" class="nav-link">
 
                                     <p>Profile Picture</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="/bio-message" class="nav-link">
+                                <a href="/panel/profile/bio-message" class="nav-link">
                                     <p>Bio Message</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="/change-password" class="nav-link">
+                                <a href="/panel/profile/change-password" class="nav-link">
 
                                     <p>Change Password</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="/profile-status" class="nav-link">
+                                <a href="/panel/profile/profile-status" class="nav-link">
 
                                     <p>Profile Status</p>
                                 </a>
@@ -238,13 +238,13 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/UI/general.html" class="nav-link">
+                                <a href="/panel/home/following-you" class="nav-link">
 
                                     <p>Followed Users</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/UI/icons.html" class="nav-link">
+                                <a href="/panel/home/users-following-you" class="nav-link">
 
                                     <p>Users Following You</p>
                                 </a>

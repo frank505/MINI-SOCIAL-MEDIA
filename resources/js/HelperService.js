@@ -67,14 +67,28 @@ export const httpResponseCreateOrUpdateData = (data,displayErr) =>
 {
     if(data.success==false && data.hasOwnProperty("error"))
     {
-        $(".large-spinner").hide();
         let errorMessage = data.error;
         displayErrorMessages(errorMessage,displayErr);
+        return false;
+
+    }else if(data.success==false && !data.hasOwnProperty('error'))
+    {
+        if(data.message=='Unauthenticated')
+        {
+            window.location = "/login";
+
+        }else
+            {
+                swal(data.message);
+                return false;
+            }
+        swal(data.message);
     }
     else if(data.success==true)
     {
-        $(".large-spinner").hide();
+
         swal(data.message);
+        return true;
         // reloadSamepage(1000);
 
     }

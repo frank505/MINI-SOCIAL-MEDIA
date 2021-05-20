@@ -10,6 +10,9 @@ class Followers extends Model implements FollowersContract
 {
     use HasFactory;
 
+    protected $table = 'followed_users';
+
+    protected $fillable = ['userid','followed_userid'];
 
     public function followers()
     {
@@ -22,5 +25,27 @@ class Followers extends Model implements FollowersContract
         // TODO: Implement following() method.
         return $this->belongsTo('App\Models\Users','followed_userid','id');
     }
+
+
+    public static function followUser($id,$followerId)
+    {
+      return self::create([
+          'userid'=>$id,
+          'followed_userid'=>$followerId
+      ]);
+    }
+
+
+
+    public  static function unFollowUser($id,$followerId)
+    {
+        return self::where([
+            'userid'=>$id,
+            'followed_userid'=>$followerId
+        ])->delete();
+    }
+
+
+
 
 }

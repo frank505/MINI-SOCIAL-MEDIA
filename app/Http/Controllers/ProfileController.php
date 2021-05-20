@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Helpers\HttpResponseHelper;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\EditBioMessageRequest;
+use App\Http\Requests\FollowOrUnfollowUserRequest;
 use App\Http\Requests\ProfilePictureRequest;
 use App\Http\Requests\ProfileStatusRequest;
+use App\Models\Followers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -39,7 +41,7 @@ class ProfileController extends Controller
 
     public function profilePictureView()
     {
-        $id = Auth::user()->id;
+        $id =   Auth::user()->id;
         $data = $this->user->getAccountDetails($id);
         $pic = $data->pic=='default.png'? 'default.png':$this->url."".Storage::url('public/profile/'.$data->pic);
         return view('profilePicture',
@@ -143,9 +145,22 @@ class ProfileController extends Controller
    {
        $url = $this->url."".Storage::url('public/profile/');
        $data = $this->user->getAccountDetails($id);
+
+       /**
+        * check if user action is private and redirect to login
+        */
+
+       if($data->pvt==0)
+       {
+           return redirect()->to('/login');
+       }
+
+       $followerUserId = Auth::check() ? Auth::user()->id : NULL;
+       $isFollowingUser = $followerUserId == null || $followerUserId == '' ? 0 : $this->user->isFollowingUser($followerUserId,$id);
         return view('publicProfile',[
             'profile'=>$data,
-            'url'=>$url
+            'url'=>$url,
+            'is_following_user'=>$isFollowingUser
         ]);
    }
 

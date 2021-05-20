@@ -20,4 +20,14 @@ interface  UserContract
 
     public function followingYou();
 
+   public function isFollowingUser($followerUserId,$id);
+
+   public function createNewFollower($followerUserId,$id);
+
+   public function unFollowerUser($followerUserId,$id);
+
+   public function allUsersFollowingYou($id);
+
+   public function allUsersYouAreFollowing($id);
+
 }
