@@ -27,5 +27,7 @@ interface  UserContract
 
    public function createUser($request);
 
+   public function deleteUser($id);
+
 
 }

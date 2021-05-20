@@ -14,7 +14,7 @@
             @foreach ($data as $profile)
 
 
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 15px;">
 
                 <div class="card" >
                     <img class="card-img-top" src="{{

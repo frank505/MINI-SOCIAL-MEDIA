@@ -88,11 +88,17 @@ class AdminController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
         //
+        $url = $this->baseUrl."".Storage::url('public/profile/');
+        $data = $this->user->getAccountDetails($id);
+        return view('editUserView',[
+            'data'=>$data,
+            'url'=>$url
+        ]);
     }
 
     /**
@@ -111,10 +117,22 @@ class AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
-        //
+      $deleted =  $this->user->deleteUser($id);
+      if($deleted)
+      {
+          return  HttpResponseHelper::Response(true,
+              'User deleted Successfully'.$id,NULL,200);
+
+      }
+
+        return  HttpResponseHelper::Response(true,
+            'Delete Action Failed',NULL,422);
+
     }
+
+
 }
