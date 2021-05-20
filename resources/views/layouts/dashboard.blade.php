@@ -36,7 +36,7 @@
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{asset('dist/img/AdminLTELogo.png')}}"
+        <img class="animation__shake" src="{{asset('/dist/img/AdminLTELogo.png')}}"
              alt="AdminLTELogo" height="60" width="60">
     </div>
 
@@ -49,9 +49,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
             <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
-                </a>
+
                 <div class="navbar-search-block">
                     <form class="form-inline">
                         <div class="input-group input-group-sm">
@@ -93,7 +91,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/" class="brand-link">
-            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">AdminLTE 3</span>
         </a>
 
@@ -118,11 +116,21 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+
+                    @if(Auth::user()->role=='user')
                     <li class="nav-item">
-                        <a href="./home" class="nav-link active">
+                        <a href="/home" class="nav-link">
                             <p>Home</p>
                         </a>
                     </li>
+                    @elseif(Auth::user()->role == 'admin')
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link">
+                                <p>Home</p>
+                            </a>
+                        </li>
+                    @endif
+
 
                     <li class="nav-item">
 
@@ -177,6 +185,9 @@
                             </li>
                         </ul>
                     </li>
+
+                    @if(Auth::user()->role=='user')
+
                     <li class="nav-item">
                         <a href="#" class="nav-link">
 
@@ -244,7 +255,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/panel/home/users-following-you" class="nav-link">
+                                <a href="/panel/home/users-you-follow" class="nav-link">
 
                                     <p>Users Following You</p>
                                 </a>
@@ -252,7 +263,40 @@
                         </ul>
                     </li>
 
+                        @elseif(Auth::user()->role=='admin')
 
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+
+                                <p>
+                                    Admin
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="/admin/users" class="nav-link">
+
+                                        <p>User List</p>
+                                    </a>
+                                </li>
+
+
+                                <li class="nav-item">
+                                    <a href="/admin/create" class="nav-link">
+
+                                        <p>Create Admin</p>
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+
+
+                    @endif
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

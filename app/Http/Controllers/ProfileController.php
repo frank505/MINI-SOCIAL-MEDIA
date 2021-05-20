@@ -149,19 +149,34 @@ class ProfileController extends Controller
        /**
         * check if user action is private and redirect to login
         */
+       $followerUserId = Auth::check() ? Auth::user()->id : NULL;
+       $isFollowingUser = $followerUserId == null || $followerUserId == '' ? 0 :
+           $this->user->isFollowingUser($followerUserId,$id);
 
-       if($data->pvt==0)
+       if($data->pvt==0 && $isFollowingUser == 0)
        {
            return redirect()->to('/login');
        }
 
-       $followerUserId = Auth::check() ? Auth::user()->id : NULL;
-       $isFollowingUser = $followerUserId == null || $followerUserId == '' ? 0 : $this->user->isFollowingUser($followerUserId,$id);
         return view('publicProfile',[
             'profile'=>$data,
             'url'=>$url,
             'is_following_user'=>$isFollowingUser
         ]);
+   }
+
+
+   public function privateProfileDisplay($id)
+   {
+       $url = $this->url."".Storage::url('public/profile/');
+       $data = $this->user->getAccountDetails($id);
+
+
+       $followerUserId = Auth::user()->id ;
+       return view('privateProfile',[
+           'profile'=>$data,
+           'url'=>$url,
+       ]);
    }
 
 

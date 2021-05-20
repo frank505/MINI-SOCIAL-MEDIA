@@ -29,11 +29,16 @@
        }}" alt="Card image cap">
                         <div class="card-body" style="text-align: center;">
                             <h5 class="card-title"><b>{{$profile->name}}</b></h5>
-                            <p class="card-text">{{$profile->bio}}</p>
+                            <p class="card-text">{{$profile->bio == '' || $profile->bio==null?
+                                  'Bio is yet to updated':
+                                  $profile->bio
+                                  }}</p>
+
+
                             @if($is_following_user==0)
                             <a class="btn btn-primary" id="follow-user" data-user="{{$profile->id}}">Follow User</a>
                                 @else
-                                <a  class="btn btn-primary" id="unfollow-user" data-user="{{$profile->id}}">UnFollow User</a>
+                                <a  class="btn btn-danger" id="unfollow-user" data-user="{{$profile->id}}">UnFollow User</a>
                            @endif
                         </div>
                     </div>

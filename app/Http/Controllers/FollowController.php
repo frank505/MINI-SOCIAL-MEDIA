@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpResponseHelper;
 use App\Http\Requests\FollowOrUnfollowUserRequest;
+use App\Models\Followers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
@@ -12,15 +13,16 @@ use Illuminate\Support\Facades\Auth;
 class FollowController extends Controller
 {
     //
-    protected $users;
+
+   protected $follow, $url;
     public function __construct(UrlGenerator $urlGenerator)
     {
         $this->middleware(
             ['auth','verified'],
             ['except'=>['followUser']]
         );
-        $this->user = new User();
         $this->url = $urlGenerator->to('/');
+        $this->follow = new Followers();
     }
 
     public function followUser(FollowOrUnfollowUserRequest $request)
@@ -44,14 +46,14 @@ class FollowController extends Controller
                 422);
         }
 
-        $count =  $this->user->isFollowingUser($followerUserId,$request->userid);
+        $count =  $this->follow->isFollowingUser($followerUserId,$request->userid);
 
         if($count > 0)
         {
             return HttpResponseHelper::Response(false,'User is already being followed',[],422);
         }
 
-        $this->user->createNewFollower($followerUserId,$request->userid);
+        $this->follow->followUser($request->userid,$followerUserId);
 
         return HttpResponseHelper::Response(true,'Successfully Followed User ',[],200);
     }
@@ -67,7 +69,7 @@ class FollowController extends Controller
 
         $followerUserId = Auth::user()->id;
 
-        $this->user->unFollowerUser($followerUserId,$id);
+         $this->follow->unFollowUser($id,$followerUserId);
 
         return HttpResponseHelper::Response(true,'Successfully unFollowed User ',[],200);
     }
@@ -77,9 +79,10 @@ class FollowController extends Controller
     public function allUsersFollowed()
     {
         $id = Auth::user()->id;
-        $data = $this->user->allUsersYouAreFollowing($id);
+        $data = $this->follow->allUsersYouAreFollowing($id);
         return view('allUsersFollowed',[
-            'data'=>$data
+            'data'=>$data,
+            'url'=>$this->url
         ]);
 
     }
@@ -87,9 +90,10 @@ class FollowController extends Controller
     public function allUsersFollowing()
     {
         $id = Auth::user()->id;
-        $data = $this->user->allUsersFollowingYou($id);
+        $data = $this->follow->allUsersFollowingYou($id);
         return view('allUsersFollowingYou',[
-            'data'=>$data
+            'data'=>$data,
+            'url'=>$this->url
         ]);
     }
 

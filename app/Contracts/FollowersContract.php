@@ -8,8 +8,14 @@ interface  FollowersContract
 
    public function following();
 
-   public static function followUser($id,$followerId);
+   public function followUser($id,$followerId);
 
-   public static function unFollowUser($id,$followerId);
+   public  function unFollowUser($id,$followerId);
+
+    public function allUsersFollowingYou($id);
+
+    public function allUsersYouAreFollowing($id);
+
+    public function isFollowingUser($followerUserId,$userid);
 
 }

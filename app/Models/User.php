@@ -29,7 +29,8 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
         'pic',
          'bio',
          'pvt',
-        'last_login_date'
+        'last_login_date',
+        'role'
     ];
 
     /**
@@ -90,7 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
 
   public function allPaginatedUsers($itemsPerPage)
   {
-      return $this->paginate($itemsPerPage,[
+      return $this->where(['role'=>'user'])->paginate($itemsPerPage,[
           'pic','name','id'
       ]);
   }
@@ -119,33 +120,28 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
     }
 
 
-    public function createNewFollower($followerUserId,$id)
+    public function updateLoginTimeStamp($email)
     {
-        return Followers::followUser($id,$followerUserId);
-    }
-
-    public function unFollowerUser($followerUserId, $id)
-    {
-        // TODO: Implement unFollowerUser() method.
-        return Followers::unFollowUser($id,$followerUserId);
+        return $this->where(['email'=>$email])->update([
+            'last_login_date'=>Carbon::now()->toDateString()
+        ]);
     }
 
 
-    public function allUsersFollowingYou($id)
+
+    public function createUser($request)
     {
-        // TODO: Implement allUsersFollowingYou() method.
-     $itemPerPage = 10;
-     return $this->where(['id'=>$id])->with('followingYou')->paginate($itemPerPage);
-
+        return $this->create([
+            'username'=> $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'pic'=>'default.png',
+            'bio'=>NULL,
+            'pvt'=>1,
+            'role'=>'user',
+            'last_login_date'=>Carbon::now()->toDateString()
+        ]);
     }
-
-    public function allUsersYouAreFollowing($id)
-    {
-        // TODO: Implement allUsersYouAreFollowing() method.
-        $itemPerPage = 10;
-        return $this->where(['id'=>$id])->with('followers')->paginate($itemPerPage);
-
-    }
-
 
 }

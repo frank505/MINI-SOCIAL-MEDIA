@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +34,13 @@ Route::get('/panel/profile/profile-status',[ProfileController::class,'displayPro
 Route::patch('/panel/profile/profile-status-action',[ProfileController::class,'editProfileStatus']);
 Route::get('/panel/home/following-you',[FollowController::class,'allUsersFollowing']);
 Route::get('/panel/home/users-you-follow',[FollowController::class,'allUsersFollowed']);
+Route::get('/panel/home/username/{id}',[ProfileController::class,'privateProfileDisplay']);
 Route::get('/',[ProfileController::class,'userPaginatedData']);
 Route::get('/username/{id}',[ProfileController::class,'publicProfileDisplay']);
 Route::post('/follow-user',[FollowController::class,'followUser']);
 Route::delete('/unfollow-user/{id}',[FollowController::class, 'unFollowUser']);
+Route::get('/admin/users',[AdminController::class, 'userList']);
+Route::resource('admin',AdminController::class);
+
 
 

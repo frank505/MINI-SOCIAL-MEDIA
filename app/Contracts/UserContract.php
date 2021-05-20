@@ -22,12 +22,10 @@ interface  UserContract
 
    public function isFollowingUser($followerUserId,$id);
 
-   public function createNewFollower($followerUserId,$id);
+   public function updateLoginTimeStamp($email);
 
-   public function unFollowerUser($followerUserId,$id);
 
-   public function allUsersFollowingYou($id);
+   public function createUser($request);
 
-   public function allUsersYouAreFollowing($id);
 
 }
