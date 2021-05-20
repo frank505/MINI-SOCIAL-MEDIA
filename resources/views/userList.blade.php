@@ -6,7 +6,7 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h3><b>Users Following You</b></h3>
+                <h3 ><b>All Registered Users</b></h3>
             </div>
 
 
@@ -17,14 +17,14 @@
 
                     <div class="card" >
                         <img class="card-img-top" src="{{
-                   $profile->following->pic=='default.png'?
-                    asset('./dist/img/custom_user_img.jpg')
+                   $profile->pic=='default.png'?
+                    asset('/dist/img/custom_user_img.jpg')
                    :
-            $url."/".$profile->following->pic
-       }}" alt="Card image cap">
+            $url."/".$profile->pic
+                }}" alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title"><b>{{$profile->following->name}}</b></h4><br>
-                            <a href="/panel/home/username/{{$profile->following->id}}" class="btn btn-primary">View Bio</a>
+                            <h4 class="card-title"><b>{{$profile->name}}</b></h4><br>
+                            <a href="/panel/home/username/{{$profile->id}}" class="btn btn-primary">View Bio</a>
                         </div>
                     </div>
 

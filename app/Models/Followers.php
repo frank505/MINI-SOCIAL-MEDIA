@@ -17,19 +17,19 @@ class Followers extends Model implements FollowersContract
     public function followers()
     {
         // TODO: Implement followers() method.
-        return $this->belongsTo('App\Models\Users','userid','id');
+        return $this->belongsTo('App\Models\User','userid','id');
     }
 
     public function following()
     {
         // TODO: Implement following() method.
-        return $this->belongsTo('App\Models\Users','followed_userid','id');
+        return $this->belongsTo('App\Models\User','followed_userid','id');
     }
 
 
-    public static function followUser($id,$followerId)
+    public function followUser($id,$followerId)
     {
-      return self::create([
+      return $this->create([
           'userid'=>$id,
           'followed_userid'=>$followerId
       ]);
@@ -37,15 +37,37 @@ class Followers extends Model implements FollowersContract
 
 
 
-    public  static function unFollowUser($id,$followerId)
+    public   function unFollowUser($id,$followerId)
     {
-        return self::where([
+        return $this->where([
             'userid'=>$id,
             'followed_userid'=>$followerId
         ])->delete();
     }
 
 
+    public function allUsersFollowingYou($id)
+    {
+        $perPage = 3;
+        return $this->where(['userid'=>$id])->with('following')->paginate($perPage);
+    }
+
+
+    public function allUsersYouAreFollowing($id)
+    {
+        // TODO: Implement allUsersFollowingYou() method.
+        $perPage = 3;
+        return $this->where(['followed_userid'=>$id])->with('followers')->paginate($perPage);
+    }
+
+
+    public function isFollowingUser($followerUserId,$userid)
+    {
+        return $this->where([
+            'userid'=>$userid,
+            'followed_userid'=>$followerUserId
+        ])->count();
+    }
 
 
 }

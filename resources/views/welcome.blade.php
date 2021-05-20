@@ -3,6 +3,11 @@
 
 @section('content')
     <div class="container">
+
+       <h1 style="margin-bottom:100px;">
+           All Registered Users
+       </h1>
+
         <div class="row">
 
 
