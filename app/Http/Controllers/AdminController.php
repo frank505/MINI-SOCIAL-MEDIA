@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Helpers\HttpResponseHelper;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\EditUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -106,11 +108,33 @@ class AdminController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(EditUserRequest $request, $id)
     {
         //
+        $request->validated();
+
+        if(!$request->hasFile('file'))
+        {
+            $file = $request->file('file');
+            $ext = $file->extension();
+            $newName = time()."-".rand(0,9999);
+            $filename = $newName.".".$ext;
+            $data = $this->user->getAccountDetails($id);
+            /**
+             * delete file if it already exists
+             */
+            $data->pic=='default.png'?NULL : Storage::delete('/public/profile/'.$data->pic);
+            $file->storeAs('/public/profile/', $newName.'.' . $ext,['disk' => 'local']);
+            $this->user->adminUpdateUserData($request,$id,$filename);
+            return HttpResponseHelper::Response(true,'User Profile Updated Successfully',
+                NULL,200);
+        }
+
+        $this->user->adminUpdateUserData($request,$id,NULL);
+        return HttpResponseHelper::Response(true,'User Profile Updated Successfully',[],200);
+
     }
 
     /**

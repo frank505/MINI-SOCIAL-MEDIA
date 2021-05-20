@@ -29,5 +29,7 @@ interface  UserContract
 
    public function deleteUser($id);
 
+   public function adminUpdateUserData($request,$id,$fileName);
+
 
 }
