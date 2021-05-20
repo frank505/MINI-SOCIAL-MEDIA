@@ -16,7 +16,9 @@
                 <div class="col-md-4">
 
                     <div class="card" >
-                        <img class="card-img-top" src="{{
+                        <img class="card-img-top"
+                             style="height: 250px;"
+                             src="{{
                    $profile->followers->pic=='default.png'?
                     asset('/dist/img/custom_user_img.jpg')
                    :

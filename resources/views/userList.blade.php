@@ -19,7 +19,9 @@
                 <div class="col-md-4">
 
                     <div class="card" >
-                        <img class="card-img-top" src="{{
+                        <img class="card-img-top"
+                             style="height:350px;"
+                             src="{{
                    $profile->pic=='default.png'?
                     asset('/dist/img/custom_user_img.jpg')
                    :

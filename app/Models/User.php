@@ -169,7 +169,7 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
         ])->update([
             'name'=>$request->name,
             'bio'=>$request->bio,
-            'pic'=>$request->pic
+            'pic'=>$fileName
         ]);
 
     }

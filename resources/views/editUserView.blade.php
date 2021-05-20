@@ -15,7 +15,7 @@
                         </div>
                         <meta name="_token" content="{{ csrf_token() }}" />
 
-                        <input type="hidden" value="{{request()->route('id')}}" id="content-edit-id"/>
+                        <input type="hidden" value="{{request()->route('admin')}}" id="content-edit-id"/>
 
                         <div class="form-group" style="text-align: center;align-items: center;align-self: center">
                             <img

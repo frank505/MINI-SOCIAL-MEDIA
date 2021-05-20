@@ -115,7 +115,7 @@ class AdminController extends Controller
         //
         $request->validated();
 
-        if(!$request->hasFile('file'))
+        if($request->hasFile('file'))
         {
             $file = $request->file('file');
             $ext = $file->extension();
