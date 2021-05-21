@@ -52,7 +52,6 @@ class BioMessageUpdatePageTest extends TestCase
         $response =   $this->actingAs($user)->call('PATCH',
             '/panel/profile/edit-bio-message',
             array(
-                '_token' => csrf_token(),
                 'message' =>'hhhhhheeeeeeeeeer ghgfdfg'
             ));
 

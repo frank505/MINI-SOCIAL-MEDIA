@@ -32,7 +32,6 @@ class RegisterLoginPageTest extends TestCase
     {
         Event::fake();
       $response =   $this->call('POST','/register',array(
-            '_token' => csrf_token(),
             'name'=>'desmond',
             'email'=>'akpufranklin2@gmail.com',
             'username'=>'eeeemanuel205555',

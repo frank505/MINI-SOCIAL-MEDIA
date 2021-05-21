@@ -55,7 +55,6 @@ class AdminEditUserPageTest extends TestCase
         $response =   $this->actingAs($admin)->call('PATCH',
             '/admin/2',
             array(
-                '_token' => csrf_token(),
                 'name'=>'dddd',
                 'bio'=>'dfgfdsdfgh'
             ));

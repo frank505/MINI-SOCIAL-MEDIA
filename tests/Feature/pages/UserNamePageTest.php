@@ -57,10 +57,7 @@ class UserNamePageTest extends TestCase
         ]);
 
         $response =   $this->actingAs($user)->call('GET',
-            '/panel/home/username/2',
-            array(
-                '_token' => csrf_token(),
-            ));
+            '/panel/home/username/2');
 
         $response->assertSeeText('User Profile Details');
 
