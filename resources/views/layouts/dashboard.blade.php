@@ -251,13 +251,13 @@
                             <li class="nav-item">
                                 <a href="/panel/home/following-you" class="nav-link">
 
-                                    <p>Followed Users</p>
+                                    <p>Users Following You</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/panel/home/users-you-follow" class="nav-link">
 
-                                    <p>Users Following You</p>
+                                    <p>Users You are following</p>
                                 </a>
                             </li>
                         </ul>
@@ -286,7 +286,7 @@
                                 <li class="nav-item">
                                     <a href="/admin/create" class="nav-link">
 
-                                        <p>Create Admin</p>
+                                        <p>Create User</p>
                                     </a>
                                 </li>
 

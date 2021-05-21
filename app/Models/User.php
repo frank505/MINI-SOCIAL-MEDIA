@@ -128,7 +128,6 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
     }
 
 
-
     public function createUser($request)
     {
         return $this->create([
@@ -143,5 +142,38 @@ class User extends Authenticatable implements MustVerifyEmail,UserContract
             'last_login_date'=>Carbon::now()->toDateString()
         ]);
     }
+
+    public function deleteUser($id)
+    {
+        // TODO: Implement deleteUser() method.
+        return $this->where(['id'=>$id])->delete();
+    }
+
+
+    public function adminUpdateUserData($request,$id,$fileName)
+    {
+        // TODO: Implement adminUpdateUserData() method.
+        if($fileName == NULL)
+        {
+          return   $this->where([
+                'id'=>$id
+            ])->update([
+                'name'=>$request->name,
+                'bio'=>$request->bio,
+            ]);
+        }
+
+
+        return $this->where([
+            'id'=>$id
+        ])->update([
+            'name'=>$request->name,
+            'bio'=>$request->bio,
+            'pic'=>$fileName
+        ]);
+
+    }
+
+
 
 }

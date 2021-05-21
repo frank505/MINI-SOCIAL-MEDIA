@@ -21,7 +21,8 @@ $(document).on("change","#img-profile",function (e){
    if(isImage(fileUpload.files[0].name)===false)
    {
        imgSrc.src = previousSrc;
-       return SwalAlert('invalid file','this is not part of the recommended images jpg, png and jpeg','error');
+       return SwalAlert('invalid file',
+           'this is not part of the recommended images jpg, png and jpeg','error');
    }
 
    imgCheckWidthHeight(fileUpload,imgSrc,previousSrc);

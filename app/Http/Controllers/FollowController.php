@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FollowController extends Controller
 {
@@ -79,21 +80,23 @@ class FollowController extends Controller
     public function allUsersFollowed()
     {
         $id = Auth::user()->id;
+        $url = $this->url."".Storage::url('public/profile/');
         $data = $this->follow->allUsersYouAreFollowing($id);
         return view('allUsersFollowed',[
             'data'=>$data,
-            'url'=>$this->url
+            'url'=>$url
         ]);
 
     }
 
     public function allUsersFollowing()
     {
+        $url = $this->url."".Storage::url('public/profile/');
         $id = Auth::user()->id;
         $data = $this->follow->allUsersFollowingYou($id);
         return view('allUsersFollowingYou',[
             'data'=>$data,
-            'url'=>$this->url
+            'url'=>$url
         ]);
     }
 

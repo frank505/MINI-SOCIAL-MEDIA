@@ -27,5 +27,9 @@ interface  UserContract
 
    public function createUser($request);
 
+   public function deleteUser($id);
+
+   public function adminUpdateUserData($request,$id,$fileName);
+
 
 }
