@@ -43,7 +43,7 @@ class ProfileController extends Controller
     {
         $id =   Auth::user()->id;
         $data = $this->user->getAccountDetails($id);
-        $pic = $data->pic=='default.png'? 'default.png':$this->url."".Storage::url('public/profile/'.$data->pic);
+        $pic = $data->pic=='default.png'  ? 'default.png':$this->url."".Storage::url('public/profile/'.$data->pic);
         return view('profilePicture',
             [
                 "details"=>$pic
@@ -55,7 +55,7 @@ class ProfileController extends Controller
     {
      $request->validated();
      $file = $request->file("file");
-     $ext = $file->extension();
+     $ext = $file->getClientOriginalExtension();
      $newName = time()."-".rand(0,9999);
      $filename = $newName.".".$ext;
      $id = Auth::user()->id;
@@ -64,7 +64,7 @@ class ProfileController extends Controller
      * delete file if it already exists
       */
      $data->pic=='default.png'?NULL : Storage::delete('/public/profile/'.$data->pic);
-     $file->storeAs('/public/profile/', $newName.'.' . $ext,['disk' => 'local']);
+     Storage::putFileAs('/public/profile/',$file,$newName.".".$ext);
      $this->user->updateProfilePictureName($filename,$id);
      return HttpResponseHelper::Response(TRUE,'Profile Changed Successfully',NULL, 200);
     }

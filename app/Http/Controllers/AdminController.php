@@ -145,11 +145,17 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
+        $data = $this->user->getAccountDetails($id);
+        /**
+         * delete file if it already exists
+         */
+        $data->pic=='default.png'? NULL : Storage::delete('/public/profile/'.$data->pic);
       $deleted =  $this->user->deleteUser($id);
       if($deleted)
       {
+
           return  HttpResponseHelper::Response(true,
-              'User deleted Successfully'.$id,NULL,200);
+              'User deleted Successfully',NULL,200);
 
       }
 

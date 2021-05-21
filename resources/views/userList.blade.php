@@ -13,6 +13,8 @@
             </div>
 
 
+            <div class="display_err"></div>
+
             @foreach ($data as $profile)
 
 
