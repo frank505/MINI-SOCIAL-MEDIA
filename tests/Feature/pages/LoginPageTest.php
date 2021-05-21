@@ -39,7 +39,6 @@ class LoginPageTest extends TestCase
         ]);
 
         $response =   $this->call('POST','/login',array(
-            '_token' => csrf_token(),
             'email'=>'akpufranklin2@gmail.com',
             'password'=>'password',
         ));

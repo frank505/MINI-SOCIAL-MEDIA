@@ -50,17 +50,19 @@ class ProfilePictureEditPageTest extends TestCase
     public function test_submit_edit_profile_picture()
     {
         $user = $this->userAccount();
-       $path =  storage_path()."/app/public/test_img/test.jpg";
-        $name = 'test.jpg';
 
-        $file = new UploadedFile( $path, $name,
-            'image/jpg', null, False);
+        Storage::fake('local');
+        $width = 200;
+        $height = 200;
+        $file =  UploadedFile::fake()->image('avatar.jpg', $width, $height)->size(100);
         $response =   $this->actingAs($user)->call('PATCH',
             '/panel/profile/edit-profile-picture',
             array(
             '_token' => csrf_token(),
                 'file' => $file
         ));
+
+        Storage::disk('local')->assertExists($file->hashName());
 
         $response->assertJson([
             'success'=>true

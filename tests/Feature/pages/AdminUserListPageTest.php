@@ -97,10 +97,7 @@ class AdminUserListPageTest extends TestCase
         $this->createUser();
         $admin = $this->userAccount();
         $response =   $this->actingAs($admin)->call('DELETE',
-            '/admin/2',
-            array(
-                '_token' => csrf_token(),
-            )); //since we are creating 10 users surely user number two always exist
+            '/admin/2'); //since we are creating 10 users surely user number two always exist
 
         $response->assertJson([
             'success'=>true

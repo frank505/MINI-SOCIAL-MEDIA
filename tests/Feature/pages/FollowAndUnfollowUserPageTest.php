@@ -55,7 +55,6 @@ class FollowAndUnfollowUserPageTest extends TestCase
         $response =   $this->actingAs($user)->call('POST',
             '/follow-user',
             array(
-                '_token' => csrf_token(),
                   'userid'=>'3'
             ));
 

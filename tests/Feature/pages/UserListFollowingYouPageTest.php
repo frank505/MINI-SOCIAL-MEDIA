@@ -57,10 +57,7 @@ class UserListFollowingYouPageTest extends TestCase
         ]);
 
         $response =   $this->actingAs($user)->call('GET',
-            '/panel/home/following-you',
-            array(
-                '_token' => csrf_token(),
-            ));
+            '/panel/home/following-you');
 
         $response->assertSeeText('Users Following You');
 

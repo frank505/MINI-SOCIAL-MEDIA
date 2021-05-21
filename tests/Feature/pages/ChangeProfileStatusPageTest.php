@@ -52,7 +52,6 @@ class ChangeProfileStatusPageTest extends TestCase
         $response =   $this->actingAs($user)->call('PATCH',
             '/panel/profile/profile-status-action',
             array(
-                '_token' => csrf_token(),
                 'profile_status' => '0',
             ));
 

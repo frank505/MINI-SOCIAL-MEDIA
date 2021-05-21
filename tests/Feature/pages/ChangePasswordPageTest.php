@@ -52,7 +52,6 @@ class ChangePasswordPageTest extends TestCase
         $response =   $this->actingAs($user)->call('PATCH',
             '/panel/profile/change-password-action',
             array(
-                '_token' => csrf_token(),
                 'password' => 'password',
                 'password_confirmation'=>'password'
             ));
